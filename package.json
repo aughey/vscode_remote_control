@@ -1,0 +1,51 @@
+{
+    "name": "vscode-remote-control",
+    "displayName": "VS Code Remote Control",
+    "description": "VS Code extension for remote control via WebSocket",
+    "version": "0.0.4",
+    "publisher": "aughey",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/aughey/vscode-remote-control.git"
+    },
+    "engines": {
+        "vscode": "^1.85.0"
+    },
+    "categories": [
+        "Other"
+    ],
+    "activationEvents": [
+        "onStartupFinished"
+    ],
+    "main": "./out/extension.js",
+    "contributes": {
+        "configuration": {
+            "title": "Remote Control",
+            "properties": {
+                "remoteControl.websocketUrl": {
+                    "type": "string",
+                    "default": "ws://localhost:8080",
+                    "description": "WebSocket server URL to connect to"
+                }
+            }
+        }
+    },
+    "scripts": {
+        "vscode:prepublish": "npm run compile",
+        "compile": "tsc -p ./",
+        "watch": "tsc -watch -p ./",
+        "pretest": "npm run compile && npm run lint",
+        "lint": "eslint src --ext ts",
+        "test": "node ./out/test/runTest.js"
+    },
+    "devDependencies": {
+        "@types/vscode": "^1.85.0",
+        "@types/node": "18.x",
+        "@typescript-eslint/eslint-plugin": "^6.15.0",
+        "@typescript-eslint/parser": "^6.15.0",
+        "eslint": "^8.56.0",
+        "typescript": "^5.3.3",
+        "ws": "^8.16.0",
+        "@types/ws": "^8.5.10"
+    }
+}
