@@ -1,15 +1,33 @@
 {
     "name": "vscode-remote-control",
-    "displayName": "VS Code Remote Control",
-    "description": "VS Code extension for remote control via WebSocket",
-    "version": "0.0.4",
+    "displayName": "AugheyRemote Control",
+    "description": "This extension allows you to remotely control Visual Studio Code. Run commands from anywhere you want on your device. The extension allows you to take VSCode automation to the next level.",
     "publisher": "aughey",
+    "license": "MIT",
+    "version": "0.8.5",
+    "engines": {
+        "vscode": "^1.55.0"
+    },
+    "badges": [
+        {
+            "description": "version",
+            "url": "https://img.shields.io/github/package-json/v/estruyf/vscode-remote-control?color=green&label=vscode-remote-control&style=flat-square",
+            "href": "https://github.com/estruyf/vscode-remote-control"
+        },
+        {
+            "description": "Buy me a coffee",
+            "url": "https://img.shields.io/badge/Buy%20me%20a%20coffee-€%203-blue?logo=buy-me-a-coffee&style=flat-square",
+            "href": "https://www.buymeacoffee.com/zMeFRy9"
+        }
+    ],
+    "icon": "assets/logo.png",
+    "galleryBanner": {
+        "color": "#132136",
+        "theme": "dark"
+    },
     "repository": {
         "type": "git",
-        "url": "https://github.com/aughey/vscode-remote-control.git"
-    },
-    "engines": {
-        "vscode": "^1.85.0"
+        "url": "https://github.com/estruyf/vscode-remote-control"
     },
     "categories": [
         "Other"
@@ -17,35 +35,56 @@
     "activationEvents": [
         "onStartupFinished"
     ],
-    "main": "./out/extension.js",
+    "main": "./dist/extension.js",
     "contributes": {
         "configuration": {
-            "title": "Remote Control",
+            "title": "Remote Control: Configuration",
             "properties": {
                 "remoteControl.websocketUrl": {
                     "type": "string",
                     "default": "ws://localhost:8080",
                     "description": "WebSocket server URL to connect to"
                 }
-            }
+            },
+            "commands": [
+                {
+                    "command": "remoteControl.openSettings",
+                    "title": "Remote Control: Open settings"
+                }
+            ]
         }
     },
     "scripts": {
-        "vscode:prepublish": "npm run compile",
-        "compile": "tsc -p ./",
-        "watch": "tsc -watch -p ./",
-        "pretest": "npm run compile && npm run lint",
+        "vscode:prepublish": "npm run package",
+        "compile": "webpack",
+        "watch": "webpack --watch",
+        "package": "webpack --mode production --devtool hidden-source-map",
+        "test-compile": "tsc -p ./",
+        "test-watch": "tsc -watch -p ./",
+        "pretest": "npm run test-compile && npm run lint",
         "lint": "eslint src --ext ts",
         "test": "node ./out/test/runTest.js"
     },
     "devDependencies": {
-        "@types/vscode": "^1.85.0",
-        "@types/node": "18.x",
-        "@typescript-eslint/eslint-plugin": "^6.15.0",
-        "@typescript-eslint/parser": "^6.15.0",
-        "eslint": "^8.56.0",
-        "typescript": "^5.3.3",
-        "ws": "^8.16.0",
-        "@types/ws": "^8.5.10"
+        "@types/glob": "^7.1.3",
+        "@types/mocha": "^8.0.4",
+        "@types/node": "^12.11.7",
+        "@types/tcp-port-used": "^1.0.0",
+        "@types/vscode": "^1.55.0",
+        "@types/ws": "7.4.1",
+        "@typescript-eslint/eslint-plugin": "^4.14.1",
+        "@typescript-eslint/parser": "^4.14.1",
+        "eslint": "^7.19.0",
+        "glob": "^7.1.6",
+        "mocha": "^8.2.1",
+        "ts-loader": "^8.0.14",
+        "typescript": "^4.1.3",
+        "vscode-test": "^1.5.0",
+        "webpack": "^5.97.1",
+        "webpack-cli": "^5.1.4",
+        "ws": "^7.5.3"
+    },
+    "dependencies": {
+        "tcp-port-used": "^1.0.2"
     }
 }
